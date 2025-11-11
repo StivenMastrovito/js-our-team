@@ -1,0 +1,12 @@
+.btn-selection{
+    top: 7px;
+    right: 7px;
+    width: 10px;
+}
+
+.btn-green{
+    background-color: greenyellow;
+}
+.card-green{
+    border: 5px solid greenyellow;
+}

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
     <title>Document</title>
 </head>
 
@@ -25,18 +26,24 @@
                 </p>
             </div>
             <div class="row my-3 card-team row-gap-3">
+            </div>
 
-            </div>
             <div class="d-flex justify-content-between">
-                <button class="btn btn-primary mt-3 new-member">Inserisci membro</button>
-                <button class="btn btn-danger mt-3 delete-member">Rimuovi membro</button>
+                <button class="btn btn-primary mt-3 new-member" d>Inserisci membro</button>
+                <div>
+                    <button class="btn btn-danger mt-3 delete-member">Rimuovi membro</button>
+                    <button class="btn btn-danger mt-3 delete-delete d-none">Rimuovi</button>
+                    <button class="btn btn-warning mt-3 btn-annulla d-none">Annulla</button>
+                </div>
             </div>
-            <form action="" class="form-delete card p-3 position-absolute top-50 start-50 translate-middle bg-warning d-none">
+            <form action=""
+                class=" z-2 form-delete card p-3 position-absolute top-50 start-50 translate-middle bg-warning d-none">
                 <label for="" class="form-label">Inserisci nome di chi vuoi rimuovere:</label>
                 <input type="text" class="form-control delete">
                 <button class="btn btn-primary">RIMUOVI</button>
             </form>
-            <form action="" class="form-new card p-3 position-absolute top-50 start-50 translate-middle bg-warning d-none">
+            <form action=""
+                class="z-2 form-new card p-3 position-absolute top-50 start-50 translate-middle bg-warning d-none">
                 <div class="row">
                     <div class="col-6">
                         <label for="name" class="form-label">Inserisci nome</label>

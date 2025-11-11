@@ -53,24 +53,28 @@ const teamMembers = [
 const cardTeam = document.querySelector(".card-team");
 const newMemberBtn = document.querySelector(".new-member");
 const deletMemberBtn = document.querySelector(".delete-member");
+const deleteDeleteBtn = document.querySelector(".delete-delete");
 const formNew = document.querySelector(".form-new");
 const formDelete = document.querySelector(".form-delete");
-
+const btnAnnulla = document.querySelector(".btn-annulla");
 
 printMember();
+let btnSelection = document.querySelectorAll(".btn-js");
+let allCard = document.querySelectorAll(".card-number");
 
-newMemberBtn.addEventListener("click", function(){
+
+newMemberBtn.addEventListener("click", function () {
   formNew.classList.remove("d-none");
 })
 
-formNew.addEventListener("submit",function(event){
+formNew.addEventListener("submit", function (event) {
   event.preventDefault();
   const input = document.querySelectorAll(".new");
   const name = input[0].value;
-  const role = input[2].value;
+  const role = input[1].value;
   const email = input[2].value;
   let img = input[3].value;
-  if(img === ""){
+  if (img === "") {
     img = "img/sconosciuto.png";
   }
   teamMembers.push({
@@ -80,50 +84,103 @@ formNew.addEventListener("submit",function(event){
     img,
   })
   console.log(img);
-  
+
   formNew.classList.add("d-none");
   formNew.reset();
-  printMember();  
+  printMember();
 })
 
-deletMemberBtn.addEventListener("click",function(){
-  formDelete.classList.remove("d-none");
+let indice = [];
+
+deletMemberBtn.addEventListener("click", function () {
+  indice = [];
+  newMemberBtn.disabled = true;
+  deletMemberBtn.classList.add("d-none");
+  deleteDeleteBtn.classList.remove("d-none");
+  btnAnnulla.classList.remove("d-none");
+  btnSelection = document.querySelectorAll(".btn-js");
+  allCard = document.querySelectorAll(".card-number");
+  for (let i = 0; i < btnSelection.length; i++) {
+    btnSelection[i].classList.remove("d-none");
+    btnSelection[i].addEventListener("click", function () {
+      const curMember = btnSelection[i];
+      const curCard = allCard[i];
+      console.log(curMember);
+      curCard.classList.add("card-green")
+      curMember.classList.add("btn-green");
+      curMember.classList.remove("bg-white");
+      indice.push(i)
+    })
+  }
+
 })
 
-formDelete.addEventListener("submit", function(event){
-  event.preventDefault();
-  const nameDelete = document.querySelector(".delete").value;
-  let indice;  
-  for(let i = 0; i < teamMembers.length; i++){
-    const curName = teamMembers[i]["name"];
-    if(nameDelete.toLowerCase() === curName.toLowerCase()){
-      indice = i;
+deleteDeleteBtn.addEventListener("click", function () {
+  indice.sort((a, b) => a - b);
+  console.log(indice);
+
+  newMemberBtn.disabled = false;
+  deletMemberBtn.classList.remove("d-none");
+  deleteDeleteBtn.classList.add("d-none");
+  btnAnnulla.classList.add("d-none");
+
+  for (let i = 0; i < indice.length; i++) {
+    teamMembers.splice(indice[i], 1);
+    for (let j = i + 1; j < indice.length; j++) {
+      indice[j]--;
+      console.log(indice);
+
     }
   }
 
-  teamMembers.splice(indice,1);
+  printMember();
+  for (let i = 0; i < btnSelection.length; i++) {
+    btnSelection[i].classList.add("d-none");
+    btnSelection[i].disabled = false;
+  }
+})
 
-  formDelete.classList.add("d-none");
-  formDelete.reset();
-  printMember();  
+btnAnnulla.addEventListener("click", function () {
+  btnAnnulla.classList.add("d-none");
+  deletMemberBtn.classList.remove("d-none");
+  deleteDeleteBtn.classList.add("d-none");
+  btnSelection = document.querySelectorAll(".btn-js");
+  allCard = document.querySelectorAll(".card-number");
+  for (let i = 0; i < btnSelection.length; i++) {
+    btnSelection[i].classList.add("d-none");
+    btnSelection[i].disabled = false;
+  }
+  indice.sort((a, b) => a - b);
+  console.log(indice);
+  
+  for (let i = 0; i < indice.length; i++) {
+    const curMember = btnSelection[indice[i]];
+    const curCard = allCard[indice[i]];
+    console.log(curMember);
+    curCard.classList.remove("card-green")
+    curMember.classList.remove("btn-green");
+    curMember.classList.add("bg-white");
+  }
 
 })
+
 
 function printMember() {
   let stringCard = "";
   for (let i = 0; i < teamMembers.length; i++) {
     const curMember = teamMembers[i];
-    card = createCard(curMember);
+    card = createCard(curMember, i);
     stringCard += card;
   }
   cardTeam.innerHTML = stringCard;
+
 }
 
-function createCard(curMember) {
+function createCard(curMember, i) {
   const { name, role, email, img } = curMember;
   return `
-  <div class="col-12 col-md-6 col-lg-4 ">
-                  <div class="d-flex bg-dark">
+  <div class="card-member col-12 col-md-6 col-lg-4 ">
+                  <div class="d-flex bg-dark position-relative card-number">
                       <div class="col-4">
                           <img src="./${img}" class="img-fluid" alt="" style="background-size: cover;">
                        </div>
@@ -132,7 +189,8 @@ function createCard(curMember) {
                           <h6 class="text-white">${role}</h6>
                            <h6 class="text-primary">${email}</h6>
                       </div>
-                  </div>
+                      <button class="btn-js d-none btn position-absolute btn-selection z-1 bg-white" value="${i}"></button>
+                    </div>
                </div>
   `
 }
