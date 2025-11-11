@@ -1,3 +1,16 @@
+// Dato un array di oggetti rappresentante un team di un’azienda, 
+// creare una pagina dedicata  in cui mostrare una card per ciascun componente.
+
+// (trovate l’array del team all’interno della cartella in allegato)
+
+// Bonus
+
+// Curare meglio l'aspetto grafico
+// Rendere l’esercizio responsive, mandando a capo le card
+// Aggiungere un form di agginta membri che permetta di visualizzare 
+// il nuovo membro sulla pagina (usate una foto qualunque, anche vostra 
+//   se volete sentirvi parte del team! 😀)
+
 const teamMembers = [
   {
     name: "Marco Bianchi",
@@ -36,3 +49,64 @@ const teamMembers = [
     img: "img/female3.png"
   }
 ];
+
+const cardTeam = document.querySelector(".card-team");
+const newMemberBtn = document.querySelector(".new-member");
+const form = document.querySelector("form");
+
+printMember();
+
+newMemberBtn.addEventListener("click", function(){
+  form.classList.remove("d-none");
+})
+
+form.addEventListener("submit",function(event){
+  event.preventDefault();
+  const input = document.querySelectorAll("input");
+  const name = input[0].value;
+  const role = input[2].value;
+  const email = input[2].value;
+  let img = input[3].value;
+  if(img === ""){
+    img = "img/sconosciuto.png";
+  }
+  teamMembers.push({
+    name,
+    role,
+    email,
+    img,
+  })
+  console.log(img);
+  
+  form.classList.add("d-none");
+  form.reset();
+  printMember();  
+})
+
+function printMember() {
+  let stringCard = "";
+  for (let i = 0; i < teamMembers.length; i++) {
+    curMember = teamMembers[i];
+    card = createCard(curMember);
+    stringCard += card;
+  }
+  cardTeam.innerHTML = stringCard;
+}
+
+function createCard(curMember) {
+  const { name, role, email, img } = curMember;
+  return `
+  <div class="col-12 col-md-6 col-lg-4 ">
+                  <div class="d-flex bg-dark">
+                      <div class="col-4">
+                          <img src="./${img}" class="img-fluid" alt="" style="background-size: cover;">
+                       </div>
+                      <div class="col-8 d-flex flex-column align-items-start justify-content-center pt-2 ps-2">
+                          <h5 class="text-white">${name}</h5>
+                          <h6 class="text-white">${role}</h6>
+                           <h6 class="text-primary">${email}</h6>
+                      </div>
+                  </div>
+               </div>
+  `
+}
