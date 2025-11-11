@@ -52,17 +52,20 @@ const teamMembers = [
 
 const cardTeam = document.querySelector(".card-team");
 const newMemberBtn = document.querySelector(".new-member");
-const form = document.querySelector("form");
+const deletMemberBtn = document.querySelector(".delete-member");
+const formNew = document.querySelector(".form-new");
+const formDelete = document.querySelector(".form-delete");
+
 
 printMember();
 
 newMemberBtn.addEventListener("click", function(){
-  form.classList.remove("d-none");
+  formNew.classList.remove("d-none");
 })
 
-form.addEventListener("submit",function(event){
+formNew.addEventListener("submit",function(event){
   event.preventDefault();
-  const input = document.querySelectorAll("input");
+  const input = document.querySelectorAll(".new");
   const name = input[0].value;
   const role = input[2].value;
   const email = input[2].value;
@@ -78,15 +81,38 @@ form.addEventListener("submit",function(event){
   })
   console.log(img);
   
-  form.classList.add("d-none");
-  form.reset();
+  formNew.classList.add("d-none");
+  formNew.reset();
   printMember();  
+})
+
+deletMemberBtn.addEventListener("click",function(){
+  formDelete.classList.remove("d-none");
+})
+
+formDelete.addEventListener("submit", function(event){
+  event.preventDefault();
+  const nameDelete = document.querySelector(".delete").value;
+  let indice;  
+  for(let i = 0; i < teamMembers.length; i++){
+    const curName = teamMembers[i]["name"];
+    if(nameDelete.toLowerCase() === curName.toLowerCase()){
+      indice = i;
+    }
+  }
+
+  teamMembers.splice(indice,1);
+
+  formDelete.classList.add("d-none");
+  formDelete.reset();
+  printMember();  
+
 })
 
 function printMember() {
   let stringCard = "";
   for (let i = 0; i < teamMembers.length; i++) {
-    curMember = teamMembers[i];
+    const curMember = teamMembers[i];
     card = createCard(curMember);
     stringCard += card;
   }

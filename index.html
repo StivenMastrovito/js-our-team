@@ -27,29 +27,37 @@
             <div class="row my-3 card-team row-gap-3">
 
             </div>
-            <button class="btn btn-primary mt-3 new-member">Inserisci membro</button>
-            <form action="" class="card p-3 position-absolute top-50 start-50 translate-middle bg-warning d-none">
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-primary mt-3 new-member">Inserisci membro</button>
+                <button class="btn btn-danger mt-3 delete-member">Rimuovi membro</button>
+            </div>
+            <form action="" class="form-delete card p-3 position-absolute top-50 start-50 translate-middle bg-warning d-none">
+                <label for="" class="form-label">Inserisci nome di chi vuoi rimuovere:</label>
+                <input type="text" class="form-control delete">
+                <button class="btn btn-primary">RIMUOVI</button>
+            </form>
+            <form action="" class="form-new card p-3 position-absolute top-50 start-50 translate-middle bg-warning d-none">
                 <div class="row">
                     <div class="col-6">
                         <label for="name" class="form-label">Inserisci nome</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="new form-control">
                     </div>
                     <div class="col-6">
                         <label for="role" class="form-label">Inserisci ruolo</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="new form-control">
                     </div>
                     <div class="col-6">
                         <label for="email" class="form-label">Inserisci email</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="new form-control">
                     </div>
                     <div class="col-6">
                         <label for="img" class="form-label">Inserisci link foto</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="new form-control">
                     </div>
                     <div class="col-12 text-center mt-3">
                         <button type="submit" class="btn btn-primary">AGGIUNGI</button>
                     </div>
-                    
+
                 </div>
             </form>
         </div>
