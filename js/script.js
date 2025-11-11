@@ -70,10 +70,10 @@ newMemberBtn.addEventListener("click", function () {
 formNew.addEventListener("submit", function (event) {
   event.preventDefault();
   const input = document.querySelectorAll(".new");
-  const name = input[0].value;
-  const role = input[1].value;
-  const email = input[2].value;
-  let img = input[3].value;
+  const name = input[0].value.trim();
+  const role = input[1].value.trim();
+  const email = input[2].value.trim();
+  let img = input[3].value.trim();
   if (img === "") {
     img = "img/sconosciuto.png";
   }
@@ -142,6 +142,7 @@ deleteDeleteBtn.addEventListener("click", function () {
 
 btnAnnulla.addEventListener("click", function () {
   btnAnnulla.classList.add("d-none");
+  newMemberBtn.disabled = false;
   deletMemberBtn.classList.remove("d-none");
   deleteDeleteBtn.classList.add("d-none");
   btnSelection = document.querySelectorAll(".btn-js");
